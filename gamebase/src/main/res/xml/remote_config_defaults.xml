@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+    <entry>
+        <key>reward_ads</key>
+    </entry>
+    <entry>
+        <key>min_version_code</key>
+        <value>20240729</value>
+    </entry>
+    <entry>
+        <key>min_version_name</key>
+        <value>1.0.1</value>
+    </entry>
+    <entry>
+        <key>default_updated_msg</key>
+        <value>- Fix bug and optimize</value>
+    </entry>
+</defaultsMap>

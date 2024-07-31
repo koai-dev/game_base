@@ -11,9 +11,6 @@ fun GameCanvas(
     modifier: Modifier = Modifier,
     onDraw: DrawScope.(runtime: Long) -> Unit
 ) {
-    update {
-        gameState.runtime = System.currentTimeMillis()
-    }
     BaseGameCanvas(gameState = gameState, modifier = modifier) {
         onDraw.invoke(this, gameState.runtime)
     }

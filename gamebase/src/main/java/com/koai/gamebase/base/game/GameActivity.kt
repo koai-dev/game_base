@@ -32,9 +32,12 @@ abstract class GameActivity : ComponentActivity() {
                 val gameState = remember {
                     mutableStateOf(GameState())
                 }
+
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Init()
-
+                    update {
+                        gameState.value = gameState.value.copy(runtime = System.currentTimeMillis())
+                    }
                     BoxWithConstraints(modifier = Modifier) {
                         Box(modifier = Modifier) {
                             GameCanvas(
