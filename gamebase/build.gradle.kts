@@ -1,8 +1,15 @@
+import com.android.build.gradle.internal.scope.publishBuildArtifacts
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
+    id("maven-publish")
 }
+
+group = "com.github.koai-dev"
+version = "1.0.0"
 
 android {
     namespace = "com.koai.gamebase"
@@ -43,6 +50,12 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {
@@ -63,5 +76,25 @@ dependencies {
     api(libs.androidx.ui.graphics)
     api(libs.androidx.ui.tooling.preview)
     api(libs.androidx.material3)
+}
 
+tasks.register("localBuild") {
+    dependsOn("assembleRelease")
+}
+
+tasks.register("createReleaseTag") {
+    doLast {
+        val tagName = "v1.0.0"
+        try {
+            exec {
+                commandLine("git", "tag", "-a", tagName, "-m", "Release tag $tagName")
+            }
+
+            exec {
+                commandLine("git", "push", "origin", tagName)
+            }
+        } catch (e: Exception) {
+            println(e.toString())
+        }
+    }
 }
