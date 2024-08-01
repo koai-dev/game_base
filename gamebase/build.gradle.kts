@@ -60,7 +60,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.koai"
             artifactId = "gamebase"
-            version = "1.0.0"
+            version = "v1.0.0"
 
             afterEvaluate {
                 from(components["release"])
