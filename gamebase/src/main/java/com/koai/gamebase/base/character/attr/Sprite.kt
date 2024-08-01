@@ -11,10 +11,11 @@ data class Sprite(val sprite: ImageBitmap)
 data class SpriteActionWithSize(
     val sprites: List<Sprite>,
     val initSpriteSize: Size = Size(50F, 50F),
+    val isFillMaxSize: Boolean = false
 )
 
 data class SpritesByAction(
-    val action: CharacterAction.Action,
+    val action: CharacterAction.Action = CharacterAction.Action.IDLE,
     val spriteActionWithSize: SpriteActionWithSize,
 )
 
