@@ -11,7 +11,7 @@ import kotlin.math.roundToLong
 
 data class GameState(
     private var status: Status = Status.STOPPED,
-    var runtime: Long = System.currentTimeMillis()
+    var runtime: Long = System.currentTimeMillis(),
 ) {
     enum class Status {
         RUNNING,

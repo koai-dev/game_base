@@ -8,6 +8,7 @@ import com.koai.gamebase.R
 
 object SoundRepository {
     private var soundRepo: SoundRepo? = null
+
     fun init(context: Application) {
         soundRepo = SoundRepo(context)
     }

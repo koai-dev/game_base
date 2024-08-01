@@ -39,11 +39,12 @@ fun JoyStick(
     dotSize: Dp = 40.dp,
     backgroundImage: Int = R.drawable.joystick_background_1,
     dotImage: Int = R.drawable.joystick_dot_1,
-    moved: (x: Float, y: Float) -> Unit = { _, _ -> }
+    moved: (x: Float, y: Float) -> Unit = { _, _ -> },
 ) {
     Box(
-        modifier = modifier
-            .size(size)
+        modifier =
+            modifier
+                .size(size),
     ) {
         val maxRadius = with(LocalDensity.current) { (size / 2).toPx() }
         val centerX = with(LocalDensity.current) { ((size - dotSize) / 2).toPx() }
@@ -67,62 +68,66 @@ fun JoyStick(
         Image(
             painter = painterResource(id = dotImage),
             "JoyStickDot",
-            modifier = Modifier
-                .offset {
-                    IntOffset(
-                        (positionX + centerX).roundToInt(),
-                        (positionY + centerY).roundToInt()
-                    )
-                }
-                .size(dotSize)
-                .pointerInput(Unit) {
-                    detectDragGestures(onDragEnd = {
-                        offsetX = centerX
-                        offsetY = centerY
-                        radius = 0f
-                        theta = 0f
-                        positionX = 0f
-                        positionY = 0f
-                    }) { pointerInputChange: PointerInputChange, offset: Offset ->
-                        val x = offsetX + offset.x - centerX
-                        val y = offsetY + offset.y - centerY
+            modifier =
+                Modifier
+                    .offset {
+                        IntOffset(
+                            (positionX + centerX).roundToInt(),
+                            (positionY + centerY).roundToInt(),
+                        )
+                    }
+                    .size(dotSize)
+                    .pointerInput(Unit) {
+                        detectDragGestures(onDragEnd = {
+                            offsetX = centerX
+                            offsetY = centerY
+                            radius = 0f
+                            theta = 0f
+                            positionX = 0f
+                            positionY = 0f
+                        }) { pointerInputChange: PointerInputChange, offset: Offset ->
+                            val x = offsetX + offset.x - centerX
+                            val y = offsetY + offset.y - centerY
 
-                        pointerInputChange.consume()
+                            pointerInputChange.consume()
 
-                        theta = if (x >= 0 && y >= 0) {
-                            atan(y / x)
-                        } else if (x < 0 && y >= 0) {
-                            (Math.PI).toFloat() + atan(y / x)
-                        } else if (x < 0 && y < 0) {
-                            -(Math.PI).toFloat() + atan(y / x)
-                        } else {
-                            atan(y / x)
-                        }
+                            theta =
+                                if (x >= 0 && y >= 0) {
+                                    atan(y / x)
+                                } else if (x < 0 && y >= 0) {
+                                    (Math.PI).toFloat() + atan(y / x)
+                                } else if (x < 0 && y < 0) {
+                                    -(Math.PI).toFloat() + atan(y / x)
+                                } else {
+                                    atan(y / x)
+                                }
 
-                        radius = sqrt((x.pow(2)) + (y.pow(2)))
+                            radius = sqrt((x.pow(2)) + (y.pow(2)))
 
-                        offsetX += offset.x
-                        offsetY += offset.y
+                            offsetX += offset.x
+                            offsetY += offset.y
 
-                        if (radius > maxRadius) {
-                            polarToCartesian(maxRadius, theta)
-                        } else {
-                            polarToCartesian(radius, theta)
-                        }.apply {
-                            positionX = first
-                            positionY = second
+                            if (radius > maxRadius) {
+                                polarToCartesian(maxRadius, theta)
+                            } else {
+                                polarToCartesian(radius, theta)
+                            }.apply {
+                                positionX = first
+                                positionY = second
+                            }
                         }
                     }
-                }
-                .onGloballyPositioned { coordinates ->
-                    moved(
-                        (coordinates.positionInParent().x - centerX) / maxRadius,
-                        -(coordinates.positionInParent().y - centerY) / maxRadius
-                    )
-                },
+                    .onGloballyPositioned { coordinates ->
+                        moved(
+                            (coordinates.positionInParent().x - centerX) / maxRadius,
+                            -(coordinates.positionInParent().y - centerY) / maxRadius,
+                        )
+                    },
         )
     }
 }
 
-private fun polarToCartesian(radius: Float, theta: Float): Pair<Float, Float> =
-    Pair(radius * cos(theta), radius * sin(theta))
+private fun polarToCartesian(
+    radius: Float,
+    theta: Float,
+): Pair<Float, Float> = Pair(radius * cos(theta), radius * sin(theta))

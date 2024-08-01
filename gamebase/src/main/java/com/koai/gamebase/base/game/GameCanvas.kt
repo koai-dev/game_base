@@ -10,7 +10,7 @@ fun GameCanvas(
     gameState: GameState,
     runtime: Long,
     modifier: Modifier = Modifier,
-    onDraw: DrawScope.(runtime: Long) -> Unit
+    onDraw: DrawScope.(runtime: Long) -> Unit,
 ) {
     BaseGameCanvas(gameState = gameState, modifier = modifier, runtime = runtime) {
         onDraw.invoke(this, runtime)
@@ -22,7 +22,7 @@ private fun BaseGameCanvas(
     gameState: GameState,
     runtime: Long,
     modifier: Modifier = Modifier,
-    onDraw: DrawScope.() -> Unit
+    onDraw: DrawScope.() -> Unit,
 ) {
     Canvas(modifier = modifier) {
         onDraw.invoke(this)

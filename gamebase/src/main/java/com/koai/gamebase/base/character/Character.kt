@@ -21,8 +21,8 @@ import kotlinx.coroutines.launch
 abstract class Character {
     val action = CharacterAction()
     abstract val spritesByActions: List<SpritesByAction>
-    abstract val collider: Collider
-    abstract val initValue: InitValue
+    open val collider: Collider = Collider()
+    open val initValue: InitValue = InitValue()
     open val delayTimeLoadSprite: Long = 200
 
     private fun currentSpritesWithSize(): SpriteActionWithSize? =
@@ -42,21 +42,31 @@ abstract class Character {
     }
 
     fun draw(
-        drawScope: DrawScope, onDraw: ((Collider) -> Unit)? = null
+        drawScope: DrawScope,
+        onDraw: ((Collider) -> Unit)? = null,
     ): Collider {
         drawScope.apply {
-            val dstOffset = IntOffset(
-                x = initValue.currentPositionX, y = initValue.currentPositionY
-            )
+            val dstOffset =
+                IntOffset(
+                    x = initValue.currentPositionX,
+                    y = initValue.currentPositionY,
+                )
 
-            val dstSize = IntSize(
-                width = (currentSpritesWithSize()?.initSpriteSize?.width
-                    ?: 0F).toInt(),
-                height = (currentSpritesWithSize()?.initSpriteSize?.width
-                    ?: 0F).toInt(),
-            )
-            if (0 < initValue.currentPositionY && initValue.currentPositionY < size.height
-                && 0 < initValue.currentPositionX && initValue.currentPositionX < size.width
+            val dstSize =
+                IntSize(
+                    width =
+                        (
+                            currentSpritesWithSize()?.initSpriteSize?.width
+                                ?: 0F
+                        ).toInt(),
+                    height =
+                        (
+                            currentSpritesWithSize()?.initSpriteSize?.width
+                                ?: 0F
+                        ).toInt(),
+                )
+            if (0 < initValue.currentPositionY && initValue.currentPositionY < size.height &&
+                0 < initValue.currentPositionX && initValue.currentPositionX < size.width
             ) {
                 collider.rect = Rect(offset = dstOffset.toOffset(), size = dstSize.toSize())
                 drawCharacter(dstOffset, dstSize, onDraw)
@@ -68,7 +78,7 @@ abstract class Character {
     private fun DrawScope.drawCharacter(
         dstOffset: IntOffset,
         dstSize: IntSize,
-        onDraw: ((Collider) -> Unit)?
+        onDraw: ((Collider) -> Unit)?,
     ) {
         currentSprites()?.get(currentIndexSprite)?.sprite?.let {
             drawImage(
@@ -95,5 +105,4 @@ abstract class Character {
             }
         }
     }
-
 }

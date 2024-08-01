@@ -5,8 +5,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -36,22 +34,23 @@ abstract class GameActivity : ComponentActivity() {
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Init()
-                    val runtime = remember {
-                        mutableLongStateOf(System.currentTimeMillis())
-                    }
+                    val runtime =
+                        remember {
+                            mutableLongStateOf(System.currentTimeMillis())
+                        }
                     update {
                         runtime.longValue = System.currentTimeMillis()
                     }
                     GameCanvas(
                         gameState = gameState,
                         runtime = runtime.longValue,
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .fillMaxSize(),
+                        modifier =
+                            Modifier
+                                .padding(innerPadding)
+                                .fillMaxSize(),
                     ) {
                         drawGame()
                     }
-
                 }
             }
         }
@@ -59,5 +58,6 @@ abstract class GameActivity : ComponentActivity() {
 
     @Composable
     abstract fun Init()
+
     abstract fun DrawScope.drawGame()
 }
