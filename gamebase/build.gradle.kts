@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.github.koai-dev"
-version = "1.0.0"
+version = "v1.0.2"
 
 android {
     namespace = "com.koai.gamebase"
@@ -29,11 +29,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -60,7 +60,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.koai"
             artifactId = "gamebase"
-            version = "v1.0.1"
+            version = "v1.0.2"
 
             afterEvaluate {
                 from(components["release"])
@@ -95,7 +95,7 @@ tasks.register("localBuild") {
 
 tasks.register("createReleaseTag") {
     doLast {
-        val tagName = "v1.0.1"
+        val tagName = version.toString()
         try {
             exec {
                 commandLine("git", "tag", "-a", tagName, "-m", "Release tag $tagName")
