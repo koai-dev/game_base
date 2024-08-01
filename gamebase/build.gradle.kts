@@ -1,6 +1,3 @@
-import com.android.build.gradle.internal.scope.publishBuildArtifacts
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -54,6 +51,20 @@ android {
         singleVariant("release") {
             withSourcesJar()
             withJavadocJar()
+        }
+    }
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.koai"
+            artifactId = "gamebase"
+            version = "1.0.0"
+
+            afterEvaluate {
+                from(components["release"])
+            }
         }
     }
 }
