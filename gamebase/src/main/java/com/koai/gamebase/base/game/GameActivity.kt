@@ -11,7 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -29,26 +30,26 @@ abstract class GameActivity : ComponentActivity() {
         }
         setContent {
             Game_baseTheme {
-                val gameState = remember {
+                val gameState by remember {
                     mutableStateOf(GameState())
                 }
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Init()
-                    update {
-                        gameState.value = gameState.value.copy(runtime = System.currentTimeMillis())
+                    val runtime = remember {
+                        mutableLongStateOf(System.currentTimeMillis())
                     }
-                    BoxWithConstraints(modifier = Modifier) {
-                        Box(modifier = Modifier) {
-                            GameCanvas(
-                                gameState = gameState.value,
-                                modifier = Modifier
-                                    .padding(innerPadding)
-                                    .fillMaxSize(),
-                            ) {
-                                drawGame()
-                            }
-                        }
+                    update {
+                        runtime.longValue = System.currentTimeMillis()
+                    }
+                    GameCanvas(
+                        gameState = gameState,
+                        runtime = runtime.longValue,
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize(),
+                    ) {
+                        drawGame()
                     }
 
                 }

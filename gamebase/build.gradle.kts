@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.github.koai-dev"
-version = "v1.0.2"
+version = "v1.0.3"
 
 android {
     namespace = "com.koai.gamebase"
@@ -60,7 +60,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.koai"
             artifactId = "gamebase"
-            version = "v1.0.2"
+            version = version.toString()
 
             afterEvaluate {
                 from(components["release"])

@@ -8,17 +8,19 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 @Composable
 fun GameCanvas(
     gameState: GameState,
+    runtime: Long,
     modifier: Modifier = Modifier,
     onDraw: DrawScope.(runtime: Long) -> Unit
 ) {
-    BaseGameCanvas(gameState = gameState, modifier = modifier) {
-        onDraw.invoke(this, gameState.runtime)
+    BaseGameCanvas(gameState = gameState, modifier = modifier, runtime = runtime) {
+        onDraw.invoke(this, runtime)
     }
 }
 
 @Composable
 private fun BaseGameCanvas(
     gameState: GameState,
+    runtime: Long,
     modifier: Modifier = Modifier,
     onDraw: DrawScope.() -> Unit
 ) {

@@ -19,7 +19,11 @@ import com.koai.gamebase.base.character.attr.Sprite
 import com.koai.gamebase.base.character.attr.SpriteActionWithSize
 import com.koai.gamebase.base.character.attr.SpritesByAction
 import com.koai.gamebase.base.game.GameActivity
+import com.koai.gamebase.base.game.GameCanvas
 import com.koai.gamebase.base.game.GameState
+import com.koai.gamebase.base.game.update
+import com.koai.gamebase.base.joystick.JoyStick
+import com.koai.gamebase.utils.SoundRepository
 import com.koai.sample.ui.game.BackgroundState
 
 class MainActivity : GameActivity() {
