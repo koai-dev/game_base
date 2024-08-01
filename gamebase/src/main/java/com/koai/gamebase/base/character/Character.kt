@@ -65,8 +65,8 @@ abstract class Character {
                                     ?: 0F
                                 ).toInt() else size.height.toInt(),
                 )
-            if (0 < initValue.currentPositionY && initValue.currentPositionY < size.height &&
-                0 < initValue.currentPositionX && initValue.currentPositionX < size.width
+            if (0 <= initValue.currentPositionY && initValue.currentPositionY <= size.height &&
+                0 <= initValue.currentPositionX && initValue.currentPositionX <= size.width
             ) {
                 collider.rect = Rect(offset = dstOffset.toOffset(), size = dstSize.toSize())
                 drawCharacter(dstOffset, dstSize, onDraw)
