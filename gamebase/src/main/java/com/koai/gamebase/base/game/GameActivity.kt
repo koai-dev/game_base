@@ -42,7 +42,6 @@ abstract class GameActivity : ComponentActivity() {
                         runtime.longValue = System.currentTimeMillis()
                     }
                     GameCanvas(
-                        gameState = gameState,
                         runtime = runtime.longValue,
                         modifier =
                             Modifier
