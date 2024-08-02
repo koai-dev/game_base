@@ -10,6 +10,7 @@ data class CharacterAction(private var status: Action = Action.IDLE) {
         CLIMB,
         DIE,
         INJURED,
+        DIED,
         UP,
         DOWN,
         LEFT,
@@ -59,6 +60,12 @@ data class CharacterAction(private var status: Action = Action.IDLE) {
     fun moveRight() {
         status = Action.RIGHT
     }
+
+    fun died() {
+        status = Action.DIED
+    }
+
+    fun isDied() = status == Action.DIED
 
     fun isRun() = status == Action.RUN
 
