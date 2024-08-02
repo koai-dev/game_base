@@ -76,8 +76,11 @@ abstract class Character {
             if ((-1) <= initValue.currentPositionY && initValue.currentPositionY <= (size.height + 1) &&
                 (-1) <= initValue.currentPositionX && initValue.currentPositionX <= (size.width + 1)
             ) {
-                collider.rect = Rect(offset = dstOffset.toOffset(), size = dstSize.toSize())
-                drawCharacter(dstOffset, dstSize, onDraw)
+                if (!action.isDied())
+                    {
+                        collider.rect = Rect(offset = dstOffset.toOffset(), size = dstSize.toSize())
+                        drawCharacter(dstOffset, dstSize, onDraw)
+                    }
             }
         }
         return collider
@@ -110,6 +113,10 @@ abstract class Character {
                 currentIndexSprite++
             } else {
                 currentIndexSprite = 0
+                if (action.isDie())
+                    {
+                        action.died()
+                    }
             }
         }
     }
