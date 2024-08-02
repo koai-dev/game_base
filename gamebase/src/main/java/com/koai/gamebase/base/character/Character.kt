@@ -54,16 +54,24 @@ abstract class Character {
 
             val dstSize =
                 IntSize(
-                    width = if (currentSpritesWithSize()?.isFillMaxSize == false)
-                        (
+                    width =
+                        if (currentSpritesWithSize()?.isFillMaxSize == false) {
+                            (
                                 currentSpritesWithSize()?.initSpriteSize?.width
                                     ?: 0F
-                                ).toInt() else size.width.toInt(),
-                    height = if (currentSpritesWithSize()?.isFillMaxSize == false)
-                        (
+                            ).toInt()
+                        } else {
+                            size.width.toInt()
+                        },
+                    height =
+                        if (currentSpritesWithSize()?.isFillMaxSize == false) {
+                            (
                                 currentSpritesWithSize()?.initSpriteSize?.width
                                     ?: 0F
-                                ).toInt() else size.height.toInt(),
+                            ).toInt()
+                        } else {
+                            size.height.toInt()
+                        },
                 )
             if ((-1) <= initValue.currentPositionY && initValue.currentPositionY <= (size.height + 1) &&
                 (-1) <= initValue.currentPositionX && initValue.currentPositionX <= (size.width + 1)
