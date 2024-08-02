@@ -37,8 +37,28 @@ abstract class Character {
         offset: IntOffset,
         isTurbo: Boolean = false,
     ) {
-        initValue.currentPositionX += (offset.x * if (isTurbo) initValue.velocity.maxSpeed else initValue.velocity.defaultSpeed).toInt()
-        initValue.currentPositionY += (offset.y * if (isTurbo) initValue.velocity.maxSpeed else initValue.velocity.defaultSpeed).toInt()
+        initValue.currentPositionX +=
+            (
+                offset.x *
+                    if (isTurbo) {
+                        initValue.velocity.maxSpeedX
+                            ?: initValue.velocity.maxSpeed
+                    } else {
+                        initValue.velocity.defaultSpeedX
+                            ?: initValue.velocity.defaultSpeed
+                    }
+            ).toInt()
+        initValue.currentPositionY +=
+            (
+                offset.y *
+                    if (isTurbo) {
+                        initValue.velocity.maxSpeedY
+                            ?: initValue.velocity.maxSpeed
+                    } else {
+                        initValue.velocity.defaultSpeedY
+                            ?: initValue.velocity.defaultSpeed
+                    }
+            ).toInt()
     }
 
     fun draw(
@@ -76,11 +96,10 @@ abstract class Character {
             if ((-1) <= initValue.currentPositionY && initValue.currentPositionY <= (size.height + 1) &&
                 (-1) <= initValue.currentPositionX && initValue.currentPositionX <= (size.width + 1)
             ) {
-                if (!action.isDied())
-                    {
-                        collider.rect = Rect(offset = dstOffset.toOffset(), size = dstSize.toSize())
-                        drawCharacter(dstOffset, dstSize, onDraw)
-                    }
+                if (!action.isDied()) {
+                    collider.rect = Rect(offset = dstOffset.toOffset(), size = dstSize.toSize())
+                    drawCharacter(dstOffset, dstSize, onDraw)
+                }
             }
         }
         return collider
@@ -112,11 +131,10 @@ abstract class Character {
             if (currentIndexSprite < (currentSprites()?.size ?: 0) - 1) {
                 currentIndexSprite++
             } else {
+                if (action.isDie()) {
+                    action.died()
+                }
                 currentIndexSprite = 0
-                if (action.isDie())
-                    {
-                        action.died()
-                    }
             }
         }
     }
