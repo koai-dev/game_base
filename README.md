@@ -14,4 +14,4 @@ Base Component for game 2D android, use compose.
 - Joystick: controller action in game
 ###Use:
 - add maven("https://jitpack.io") to settings.gradle.kts
-- add implementation("com.github.koai-dev:game_base:1.1.2") to app/build.gradle.kts
+- add implementation("com.github.koai-dev:game_base:$version") to app/build.gradle.kts
