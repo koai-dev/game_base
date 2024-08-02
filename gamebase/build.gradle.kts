@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.github.koai-dev"
-version = "v1.0.8"
+version = "v1.0.9"
 
 android {
     namespace = "com.koai.gamebase"

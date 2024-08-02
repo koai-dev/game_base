@@ -67,6 +67,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation(project(":gamebase"))
-//    implementation("com.github.koai-dev:game_base:v1.0.3")
+//    implementation(project(":gamebase"))
+    implementation("com.github.koai-dev:game_base:v1.0.8")
 }
