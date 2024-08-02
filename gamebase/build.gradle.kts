@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.github.koai-dev"
-version = "v1.0.9"
+version = "v1.1.0"
 
 android {
     namespace = "com.koai.gamebase"
@@ -94,7 +94,7 @@ tasks.register("localBuild") {
 }
 
 tasks.register("createReleaseTag") {
-    doLast {
+    dependsOn("clean").doLast {
         val tagName = version.toString()
         try {
             exec {
