@@ -93,8 +93,8 @@ abstract class Character {
                             size.height.toInt()
                         },
                 )
-            if ((-1) <= initValue.currentPositionY && initValue.currentPositionY <= (size.height + 1) &&
-                (-1) <= initValue.currentPositionX && initValue.currentPositionX <= (size.width + 1)
+            if ((-300) <= initValue.currentPositionY && initValue.currentPositionY <= (size.height + 300) &&
+                (-300) <= initValue.currentPositionX && initValue.currentPositionX <= (size.width + 300)
             ) {
                 if (!action.isDied()) {
                     collider.rect = Rect(offset = dstOffset.toOffset(), size = dstSize.toSize())
